@@ -42,9 +42,9 @@ import java.util.concurrent.atomic.AtomicInteger;
  *
  * @创建时间: 2020/1/27 23:23
  * @author: linzhou
- * @描述: ThreadPoolExecutor
+ * @描述: MyThreadPoolExecutor
  */
-public class ThreadPoolExecutor extends AbstractExecutorService {
+public class MyThreadPoolExecutor extends AbstractExecutorService {
 
     /**
      * 用ctl的高3位表示线程池的状态
@@ -113,9 +113,9 @@ public class ThreadPoolExecutor extends AbstractExecutorService {
     private final BlockingQueue<Runnable> workQueue;
 
 
-    public ThreadPoolExecutor(Integer corePoolSize, Integer maximumPoolSize,
-                              Long keepAliveTime,TimeUnit unit,
-                              BlockingQueue<Runnable> workQueue, ThreadFactory threadFactory) {
+    public MyThreadPoolExecutor(Integer corePoolSize, Integer maximumPoolSize,
+                                Long keepAliveTime, TimeUnit unit,
+                                BlockingQueue<Runnable> workQueue, ThreadFactory threadFactory) {
         this.corePoolSize = corePoolSize;
         this.maximumPoolSize = maximumPoolSize;
         this.keepAliveTime = keepAliveTime;
@@ -124,11 +124,11 @@ public class ThreadPoolExecutor extends AbstractExecutorService {
         this.threadFactory = threadFactory;
     }
 
-    public ThreadPoolExecutor(int corePoolSize,
-                              int maximumPoolSize,
-                              long keepAliveTime,
-                              TimeUnit unit,
-                              BlockingQueue<Runnable> workQueue) {
+    public MyThreadPoolExecutor(int corePoolSize,
+                                int maximumPoolSize,
+                                long keepAliveTime,
+                                TimeUnit unit,
+                                BlockingQueue<Runnable> workQueue) {
         this(corePoolSize, maximumPoolSize, keepAliveTime, unit, workQueue,
                 Executors.defaultThreadFactory());
     }
@@ -417,7 +417,7 @@ public class ThreadPoolExecutor extends AbstractExecutorService {
     }
 
     public static void main(String[] args) throws InterruptedException {
-        ThreadPoolExecutor executorService = new ThreadPoolExecutor(2, 5,
+        MyThreadPoolExecutor executorService = new MyThreadPoolExecutor(2, 5,
                 2L, TimeUnit.SECONDS,
                 new SynchronousQueue<>());
 
@@ -425,17 +425,14 @@ public class ThreadPoolExecutor extends AbstractExecutorService {
 
         for (int i = 1;i<=5;i++){
             int finalI = i;
-            Runnable r = new Runnable() {
-                @Override
-                public void run() {
-                    int n = 3;
-                    while (n-->0) {
-                        System.out.println("r"+ finalI +"===="+Thread.currentThread().getName());
-                        try {
-                            Thread.sleep(5L);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
+            Runnable r = () -> {
+                int n = 3;
+                while (n-->0) {
+                    System.out.println("r"+ finalI +"===="+Thread.currentThread().getName());
+                    try {
+                        Thread.sleep(5L);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
                     }
                 }
             };
