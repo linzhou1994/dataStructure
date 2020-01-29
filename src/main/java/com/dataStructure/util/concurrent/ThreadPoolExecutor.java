@@ -187,7 +187,7 @@ public class ThreadPoolExecutor extends AbstractExecutorService {
             }
         }
         //如果核心线程已经满了，并且无法加入任务队列，则尝试创建一个临时线程
-        else if (addWorker(command, false)) {
+        else if (!addWorker(command, false)) {
             //todo 通知添加失败的监听handler
         }
 
