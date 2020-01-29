@@ -135,6 +135,31 @@ public class ThreadPoolExecutor extends AbstractExecutorService {
 
 
     @Override
+    public void shutdown() {
+
+    }
+
+    @Override
+    public List<Runnable> shutdownNow() {
+        return null;
+    }
+
+    @Override
+    public boolean isShutdown() {
+        return false;
+    }
+
+    @Override
+    public boolean isTerminated() {
+        return false;
+    }
+
+    @Override
+    public boolean awaitTermination(long timeout, TimeUnit unit) throws InterruptedException {
+        return false;
+    }
+
+    @Override
     public void execute(Runnable command) {
 
         if (command == null) {
@@ -280,30 +305,7 @@ public class ThreadPoolExecutor extends AbstractExecutorService {
         return c & ~CAPACITY;
     }
 
-    @Override
-    public void shutdown() {
 
-    }
-
-    @Override
-    public List<Runnable> shutdownNow() {
-        return null;
-    }
-
-    @Override
-    public boolean isShutdown() {
-        return false;
-    }
-
-    @Override
-    public boolean isTerminated() {
-        return false;
-    }
-
-    @Override
-    public boolean awaitTermination(long timeout, TimeUnit unit) throws InterruptedException {
-        return false;
-    }
 
 
     private class Worker implements Runnable {
