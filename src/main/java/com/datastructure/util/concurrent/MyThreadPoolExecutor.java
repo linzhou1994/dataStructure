@@ -1,4 +1,4 @@
-package com.dataStructure.util.concurrent;
+package com.datastructure.util.concurrent;
 
 import java.util.ArrayList;
 import java.util.HashSet;
