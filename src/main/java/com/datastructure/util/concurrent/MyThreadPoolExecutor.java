@@ -110,7 +110,7 @@ public class MyThreadPoolExecutor extends AbstractExecutorService {
     /**
      * 用于存放工作线程暂时无法处理的任务
      */
-    private final BlockingQueue<Runnable> workQueue;
+    private final BlockingQueue<Runnable> workQueue ;
 
 
     public MyThreadPoolExecutor(Integer corePoolSize, Integer maximumPoolSize,
