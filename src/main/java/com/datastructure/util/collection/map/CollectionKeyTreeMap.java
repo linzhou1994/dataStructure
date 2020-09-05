@@ -31,7 +31,7 @@ public class CollectionKeyTreeMap<E, T> {
             return;
         }
         List<E> sortKeyList = getSortKeyList(key);
-        List<CollectionKeyTreeMapNode> newIndexNodeList = rootNode.addKeyCollectionNode(sortKeyList, 0, value);
+        List<CollectionKeyTreeMapNode> newIndexNodeList = rootNode.addKeyCollectionNode(sortKeyList,value);
         registerIndexNodeList(newIndexNodeList);
 
     }
@@ -290,6 +290,18 @@ public class CollectionKeyTreeMap<E, T> {
          * 如果data对应的keyList已经在节点树种存在则会返回false
          *
          * @param keyList data的key集合
+         * @param data
+         * @return 本次创建的所有节点集合
+         */
+        public List<CollectionKeyTreeMapNode> addKeyCollectionNode(List<E> keyList, T data){
+            return addKeyCollectionNode(keyList,0,data);
+        }
+        /**
+         * 向当前节点添加一个data
+         * <p>
+         * 如果data对应的keyList已经在节点树种存在则会返回false
+         *
+         * @param keyList data的key集合
          * @param index   已经遍历到keyList的第几个元素
          * @param data
          * @return 本次创建的所有节点集合
@@ -307,9 +319,9 @@ public class CollectionKeyTreeMap<E, T> {
                 //如果index+1等于keyList.size()，则说明已经遍历到最后一个key了，需要增加叶子节点来存储data
                 //如果childNode == null，则新增一个叶子节点
                 if (childNode == null) {
-                    Set<E> newChildNodekeySet = new HashSet<>(keySet);
-                    newChildNodekeySet.add(key);
-                    CollectionKeyTreeMapNode newChildNode = new CollectionKeyTreeMapNode(tree, this, key, newChildNodekeySet, data);
+                    Set<E> newChildNodeKeySet = new HashSet<>(keySet);
+                    newChildNodeKeySet.add(key);
+                    CollectionKeyTreeMapNode newChildNode = new CollectionKeyTreeMapNode(tree, this, key, newChildNodeKeySet, data);
                     addChild0(newChildNode);
                     rlt.add(newChildNode);
                 } else {
