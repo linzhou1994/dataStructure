@@ -4,7 +4,7 @@ import org.I0Itec.zkclient.IZkDataListener;
 
 import java.util.concurrent.CountDownLatch;
 
-public class ZkDistrbuteLock extends ZkAbstractLock {
+public class ZkDistributeLock extends ZkAbstractLock {
 
     private CountDownLatch countDownLatch;
 

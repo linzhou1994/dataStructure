@@ -7,7 +7,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 
-public class ZkDistrbuteLock2  extends ZkAbstractLock{
+public class ZkDistributeLock2 extends ZkAbstractLock {
 
     private String beforePath;
 
@@ -24,15 +24,15 @@ public class ZkDistrbuteLock2  extends ZkAbstractLock{
                     getKey(key),key);
         }
 
-        List<String> childrens =client.getChildren(lockAddress);
-        Collections.sort(childrens);
+        List<String> childDrens =client.getChildren(lockAddress);
+        Collections.sort(childDrens);
 
-        if (currentPath.equals(lockAddress+lockSplit+childrens.get(0))){
+        if (currentPath.equals(lockAddress+lockSplit+childDrens.get(0))){
             return true;
         }else {
-            int wz = Collections.binarySearch(childrens,currentPath.substring(currentPath.lastIndexOf(lockSplit)+1));
+            int wz = Collections.binarySearch(childDrens,currentPath.substring(currentPath.lastIndexOf(lockSplit)+1));
 
-            beforePath = getKey(childrens.get(wz-1));
+            beforePath = getKey(childDrens.get(wz-1));
         }
         return false;
     }
@@ -74,13 +74,13 @@ public class ZkDistrbuteLock2  extends ZkAbstractLock{
     }
 
     public static void main(String[] args) throws InterruptedException {
-        com.java.分布式锁.lock.ZkDistrbuteLock2 lock = new com.java.分布式锁.lock.ZkDistrbuteLock2();
+        ZkDistributeLock2 lock = new ZkDistributeLock2();
 
         final CountDownLatch latch = new CountDownLatch(1);
 
         new Thread(new Runnable() {
             public void run() {
-                com.java.分布式锁.lock.ZkDistrbuteLock2 lock = new com.java.分布式锁.lock.ZkDistrbuteLock2();
+                ZkDistributeLock2 lock = new ZkDistributeLock2();
 
                 lock.lock("林周");
                 latch.countDown();
