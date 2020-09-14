@@ -5,6 +5,10 @@ public class GitMergeTest {
     private Integer gitAddress;
     private String message;
 
+    public GitMergeTest(Integer gitAddress) {
+        this.gitAddress = gitAddress;
+    }
+
     public Integer getGitAddress() {
         return gitAddress;
     }
